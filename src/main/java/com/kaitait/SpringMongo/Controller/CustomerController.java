@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -26,7 +27,7 @@ public class CustomerController {
     @RequestMapping(value = "/addCustomer/{firstName}/{lastName}/{age}/{favouriteBeverage}", method = GET)
     @ResponseBody
     public String addCustomer(@PathVariable String firstName, @PathVariable String lastName, @PathVariable int age, @PathVariable String favouriteBeverage) {
-        repository.save(new Customer(firstName, lastName, age, new Beverage("Whiskey", "Cold", Beverage.Type.ALCOHOLIC)));
+        repository.save(new Customer(firstName, lastName, age, new Beverage("Whiskey", "Cold", Beverage.Type.ALCOHOLIC), new Date()));
         return "New Customer created: " + firstName + " " + lastName + " " + age + " " + favouriteBeverage;
     }
 
@@ -92,9 +93,9 @@ public class CustomerController {
         repository.deleteAll();
 
         // save a couple of customers
-        repository.save(new Customer("Alice", "Smith", 123, new Beverage("Coffee", "Hot", Beverage.Type.NON_ALCOHOLIC)));
-        repository.save(new Customer("Bob", "Smith", 55, new Beverage("Beer", "Cold", Beverage.Type.ALCOHOLIC)));
-        repository.save(new Customer("Tobi", "Ehrler", 21, new Beverage("Whiskey", "Cold", Beverage.Type.ALCOHOLIC)));
+        repository.save(new Customer("Alice", "Smith", 123, new Beverage("Coffee", "Hot", Beverage.Type.NON_ALCOHOLIC), new Date()));
+        repository.save(new Customer("Bob", "Smith", 55, new Beverage("Beer", "Cold", Beverage.Type.ALCOHOLIC), new Date()));
+        repository.save(new Customer("Tobi", "Ehrler", 21, new Beverage("Whiskey", "Cold", Beverage.Type.ALCOHOLIC), new Date()));
 
         // fetch all customers
         System.out.println("Customers found with findAll():");
